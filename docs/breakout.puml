@@ -1,0 +1,50 @@
+@startuml breakout
+skinparam class {
+    BackgroundColor White
+    BorderColor Black
+}
+
+class Juego {
+    - Ventana: sf::RenderWindow
+    - Bola: Pelota
+    - Paddle: Paddle
+    - Ladrillos: std::vector<Ladrillo>
+    + Iniciar(): void
+    + Ejecutar(): void
+    + ProcesarEventos(): void
+    + Actualizar(): void
+    + Dibujar(): void
+}
+
+class Pelota {
+    - Velocidad: sf::Vector2f
+    - Sprite: sf::Sprite
+    + Mover(): void
+    + RebotePaddle(): void
+    + ReboteParedes(): void
+    + ReboteLadrillos(): void
+}
+
+class Paddle {
+    - Velocidad: float
+    - Sprite: sf::Sprite
+    + MoverIzquierda(): void
+    + MoverDerecha(): void
+    + Colision(Pelota& bola): bool
+}
+
+class Ladrillo {
+    - Textura: sf::Texture
+    - Sprite: sf::Sprite
+    + Dibujar(): void
+    + GetBounds(): sf::FloatRect
+}
+
+Juego --o Pelota
+Juego --o Paddle
+Juego --o Ladrillo
+Juego *-- Pelota
+Juego *-- Paddle 
+Juego *-- Ladrillo
+
+@enduml
